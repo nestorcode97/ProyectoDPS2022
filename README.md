@@ -4,7 +4,8 @@ Nuestro proyecto consiste en la creación de una aplicación utilizando los cono
 
 # Autores 
 Grupo Teorico 02T
-* Marco Gerardo Serrano Lopez                                                                                                                                            * Eduardo Andrés Canales Fernández
+* Marco Gerardo Serrano Lopez 
+* Eduardo Andrés Canales Fernández
 * Fernando Eriberto Ceron Lopez 
 * Nestor Javier Artiga Larin 
 * Edgard Ernesto Hernández Villanueva 
