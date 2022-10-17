@@ -20,4 +20,4 @@ Usted es libre de generar obras derivadas siempre que no se haga un uso comercia
 * [Enlace a Mockups] - https://drive.google.com/file/d/1Y8CDEFUA8c7Q_8eq2Rkpz6fN4bxFwjAD/view?usp=sharing
 * [Manual de usuario] https://drive.google.com/file/d/1jM0s_2exNl6wKf4JoeWfIs9Ckgq1z7Jh/view
 * [Manual Tecnico] https://drive.google.com/file/d/1_bCIAe2UsEWm93MRfJQp8fTG1AGLxRyP/view?usp=sharing
-
+* [Video demostrativo Avance] https://www.youtube.com/watch?v=dsgSX_nePYw
