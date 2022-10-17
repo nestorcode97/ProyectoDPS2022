@@ -34,8 +34,7 @@ const PorductInfo = ({route,navigation}) => {
     }
   }
 
-  //funcion para Añadir al pagina del carrito
-  
+  //funcion para Añadir los productos a la pagina del carrito
   const addToCart = async id => {
     let itemArray = await AsyncStorage.getItem('cartItems');
     itemArray = JSON.parse(itemArray);
@@ -46,7 +45,7 @@ const PorductInfo = ({route,navigation}) => {
       try {
         await AsyncStorage.setItem('cartItems', JSON.stringify(array));
         ToastAndroid.show(
-          'Item Added Successfully to cart',
+          'El item se a agregado al carrito',
           ToastAndroid.SHORT,
         );
         navigation.navigate('Home');
@@ -59,7 +58,7 @@ const PorductInfo = ({route,navigation}) => {
       try {
         await AsyncStorage.setItem('cartItems', JSON.stringify(array));
         ToastAndroid.show(
-          'Item Added Successfully to cart',
+          'El item se a agregado al carrito',
           ToastAndroid.SHORT,
         );
         navigation.navigate('Home');
@@ -89,7 +88,6 @@ const PorductInfo = ({route,navigation}) => {
       </View>
     );
   };
- // console.log(product);
 
   return (
     <View style={{

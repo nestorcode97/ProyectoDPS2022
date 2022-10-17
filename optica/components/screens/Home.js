@@ -14,6 +14,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const Home = ({navigation}) => {
 
+    //Variables para capturar la informacion de los productos y accesorios
     const [products, setProducts] = useState([]);
     const [accessory, setAccessory] = useState([]);
 
@@ -25,7 +26,7 @@ const Home = ({navigation}) => {
         return unsubscribe;
     }, [navigation]);
 
-    //Data
+    //Obtine la informacion de los productos y accesorios de Database.js
     const getDataFromDB = () => {
         let productList = [];
         let accessoryList = [];
@@ -40,7 +41,7 @@ const Home = ({navigation}) => {
         setAccessory(accessoryList);
     };
 
-    //productos
+    // presenta en pantalla los productos y accesorios
     const ProductCard = ({data}) => {
         return(
             <TouchableOpacity
