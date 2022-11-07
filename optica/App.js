@@ -1,10 +1,12 @@
-import { View, Text,Image, StyleSheet, ScrollView, TouchableOpacity, TextInput, Button, Alert } from 'react-native'
+import { View, Text,Image, StyleSheet, ScrollView, TouchableOpacity, TextInput, Button, Alert, ToastAndroid} from 'react-native'
 import React from 'react'
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from './components/screens/Home'
 import MyCart from './components/screens/MyCart';
 import PorductInfo from './components/screens/PorductInfo';
+import Products from './components/screens/Products';
+import Accesorios from './components/screens/Accesorios';
 
 import {BlurView} from 'expo-blur';
 
@@ -18,7 +20,6 @@ const uri = 'https://i.pinimg.com/564x/01/95/df/0195dfba74f3148618322ee7735baaaf
 const logo = 'https://i.pinimg.com/564x/84/d6/9e/84d69e74e7c77fee80d6500f16cc7324.jpg'
 
 
-//Funcion para presentar el Splash
 function Splash(){
 
   const navigation = useNavigation();
@@ -43,7 +44,6 @@ function Splash(){
   )
 }
 
-//Funcion para realizar el registro y login por medio de firebase
 function LoginScreen() {
 
   const [email, setEmail] = React.useState('')
@@ -53,7 +53,6 @@ function LoginScreen() {
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
 
-  //Realizar la creacion de una cuneta con el correo y una contraseña
   const handleCreateAccount = () => {
     createUserWithEmailAndPassword(auth,email,password).then((userCredential)=>{
       console.log('Cuenta creada')
@@ -67,16 +66,20 @@ function LoginScreen() {
     })
   }
 
-  //Realiza el login con las credenciales que digite el usuario
   const handleSignIn = () =>{
     signInWithEmailAndPassword(auth,email,password).then((userCredential) =>{
       console.log('Ingresando')
       const user = userCredential.user;
       console.log(user)
+      ToastAndroid.show(
+        'Iniciando Sesion',
+        ToastAndroid.SHORT,
+      );
       navigation.navigate('Home')
     })
     .catch(error => {
       console.log(error)
+      Alert.alert("Error de autenticacion")
     })
   }
 
@@ -137,6 +140,8 @@ export default function App() {
         <Stack.Screen name='Home' component={Home}/>
         <Stack.Screen name='MyCart' component={MyCart}/>
         <Stack.Screen name='PorductInfo' component={PorductInfo}/>
+        <Stack.Screen name='Products' component={Products}/>
+        <Stack.Screen name='Accesorios' component={Accesorios}/>
       </Stack.Navigator>
     </NavigationContainer>
   )

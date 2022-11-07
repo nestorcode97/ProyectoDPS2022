@@ -13,32 +13,28 @@ import Entypo from "react-native-vector-icons/Entypo"
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-const Home = ({navigation}) => {
+const Products = ({navigation}) => {
 
     const [products, setProducts] = useState([]);
-    const [accessory, setAccessory] = useState([]);
 
-    //cada que se realiza un cambio o se maneja informacion interactua con la funcion getDataFromDB
+    //cada que se realiza un cambio o se maneja informacion interactua con la el metodo getDataFromDB
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
             getDataFromDB();
         });
+
         return unsubscribe;
     }, [navigation]);
 
     //Almacena la informacion de los productos y accesorios
     const getDataFromDB = () => {
         let productList = [];
-        let accessoryList = [];
         for (let index = 0; index < Items.length; index++) {
           if (Items[index].category == 'Producto') {
             productList.push(Items[index]);
-          } else if (Items[index].category == 'Accesorio') {
-            accessoryList.push(Items[index]);
-          }
+          } 
         }
-        setProducts(productList);
-        setAccessory(accessoryList);
+        setProducts(productList);      
     };
 
     //Vista de los productos.
@@ -46,7 +42,7 @@ const Home = ({navigation}) => {
         return(
             <TouchableOpacity
             onPress={() => navigation.navigate("PorductInfo",{productID: data.id})} 
-            style={{width:'48%', marginVertical:14,}}>
+            style={{width:'48%',marginVertical:14,}}>
                 <View style={styles.contenedorProduct}>
                     {
                         data.isOff ? (
@@ -54,36 +50,25 @@ const Home = ({navigation}) => {
                                 <Text style={styles.porcentaje2}>{data.offPercentage}%</Text>
                             </View>
                         ) : null}
-                        <Image source={data.productImage} style={{ width:'80%', height:'80%', resizeMode:'contain',}}/>
+                        <Image source={data.productImage} style={{width:'80%',height:'80%',resizeMode:'contain',}}/>
                 </View>
                 <Text style={styles.textNomProduct}>
                     {data.productName}
-                </Text>
-                {data.category == 'Accesorio' ? data.isAvailable ? (
-                    <View style={{ flexDirection:'row', alignItems:'center',}}>
-                        <FontAwesome name='circle' style={styles.IconDisponible}> Disponible</FontAwesome>
-                    </View>
-                ) : (
-                    <View style={{flexDirection:'row', alignItems:'center',}}>
-                        <FontAwesome name='circle' style={styles.IconNoDisponible}> No Disponible</FontAwesome>
-                    </View> 
-                ) : null}
+                </Text>  
                 <Text style={{color: COLOURS.black,}}>
                     &#36; {data.productPrice}
                 </Text>
             </TouchableOpacity>
         )
     }
-    
 
   return (
     <View style={{width: '100%',height: '100%',backgroundColor: COLOURS.white,}}>
         <StatusBar backgroundColor={COLOURS.white} barStyle="dark-content" />
         <ScrollView showsVerticalScrollIndicator={false}>
-
             <View style={styles.contenedorInicio}>
-                <TouchableOpacity>
-                    <Entypo name="shopping-bag" style={styles.buttonShop}> Shop</Entypo>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <Entypo name="back" style={styles.buttonShop}> Shop</Entypo>
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={() => navigation.navigate('MyCart')}>
@@ -100,40 +85,30 @@ const Home = ({navigation}) => {
                 </Text>
             </View>
             
-        <View style={{padding:16,}}>
+         <View style={{padding:16,}}>
+
             <View style={{flexDirection: 'row',alignItems: 'center',justifyContent: 'space-between',}}>
+
                 <View style={{flexDirection:'row',alignItems:'center',}}>
                     <Text style={styles.textProductos}>Productos</Text>
                     <Text style={styles.subTextProductos}>--</Text>
                 </View>
+
                 <TouchableOpacity onPress={() => navigation.navigate('Products')}>
-                    <Entypo name="list" style={styles.buttonVerProducto}>Ver todo</Entypo>
+                    <Entypo name="archive" style={styles.buttonVerProducto}></Entypo>
                 </TouchableOpacity>
             </View>
+
             <View style={{flexDirection: 'row',flexWrap: 'wrap',justifyContent: 'space-around',}}>
                 {products.map(data => {return <ProductCard data={data} key={data.id}/>})}
             </View>
-         </View>
 
-         <View style={{padding:16,}}>
-            <View style={{flexDirection: 'row',alignItems: 'center',justifyContent: 'space-between',}}>
-                <View style={{flexDirection:'row',alignItems:'center',}}>
-                    <Text style={styles.txtAccesorios}>Accesorios</Text>
-                    <Text style={styles.subTextAccesorios}>--</Text>
-                </View>
-                <TouchableOpacity onPress={() => navigation.navigate('Accesorios')}>
-                    <Entypo name="list" style={styles.buttonVerAccesorios}>Ver todo</Entypo>
-                </TouchableOpacity>
-            </View>
-            <View style={{flexDirection: 'row',flexWrap: 'wrap',justifyContent: 'space-around',}}>
-                {accessory.map(data => {return <ProductCard data={data} key={data.id}/>})}
-            </View>
          </View>
         </ScrollView>
     </View>
-    
   )
 }
+
 const styles = StyleSheet.create({
     contenedorProduct: {
         width:'100%',
@@ -168,16 +143,6 @@ const styles = StyleSheet.create({
         color: COLOURS.black,
         fontWeight: '600',
         marginBottom:2,
-    },
-    IconDisponible: {
-        fontSize:12,
-        marginRight:6,
-        color:COLOURS.green,
-    },
-    IconNoDisponible: {
-        fontSize:12,
-        marginRight:6,
-        color:COLOURS.red,
     },
     contenedorInicio: {
         width:'100%',
@@ -234,25 +199,6 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         backgroundColor: COLOURS.backgroundLight,
     },
-    txtAccesorios: {
-        fontSize: 18,
-        color: COLOURS.black,
-        fontWeight: '500',
-        letterSpacing: 1,
-    },
-    subTextAccesorios: {
-        fontSize: 14,
-        color: COLOURS.black,
-        fontWeight: '400',
-        opacity: 0.5,
-        marginLeft: 10,
-    },
-    buttonVerAccesorios: {
-        fontSize: 18,
-        color: COLOURS.blue,
-        padding: 12,
-        borderRadius: 10,
-        backgroundColor: COLOURS.backgroundLight,
-    }
 })
-export default Home;
+
+export default Products;
